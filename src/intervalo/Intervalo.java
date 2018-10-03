@@ -1,5 +1,9 @@
 package intervalo;
 
+/*Author
+    Sergio Valerian
+ */
+
 public class Intervalo {
     private double linf, lsup;
 
@@ -41,19 +45,17 @@ public class Intervalo {
 
     @Override
     public String toString() {
-        return "Intervalo{" +
-                "límite inferior =" + linf +
+        return "Intervalo{" + "límite inferior =" + linf +
                 ", límite superior =" + lsup +
                 '}';
     }
 
     public double longitud() {
-        double l = Math.abs(this.getLinf() - this.getLsup());
-        return l;
+        return Math.abs(this.linf - this.lsup);
     }
 
     public boolean igual(Intervalo i) {
-        return(this.getLsup() == i.getLsup() && this.getLinf() == i.getLinf());
+        return(this.lsup == i.getLsup() && this.linf == i.getLinf());
     }
 
     public boolean mismaLongitud(Intervalo i) {
@@ -66,14 +68,43 @@ public class Intervalo {
     }
 
     public boolean incluido(double d){
-        return (d >= getLinf() && d <= getLsup());
+        return (d >= this.linf && d <= this.lsup);
     }
 
-    public boolean incluido(Intervalo i){
-        return ((i.getLinf() >= this.getLinf()) && (i.getLsup() <= this.getLsup()));
+    public boolean incluido(Intervalo i) {
+        return ((i.getLinf() >= this.linf) && (i.getLsup() <= this.lsup));
     }
 
-    public void union(Intervalo i){
-        
+    public Intervalo union(Intervalo i) {
+        if(this.esComun(i)) {
+            return new Intervalo(this.getLinf(), this.getLsup());
+        }
+        else return null;
+    }
+
+    public void interseccion(Intervalo i) {
+
+    }
+
+    //Metodos adicionales
+
+    public boolean esComun(Intervalo i) {
+        return (this.lsup >= i.getLinf() || this.linf <= i.getLsup());
+    }
+
+    public double devLimSup(Intervalo i) {
+        return Math.min(this.linf, i.getLinf());
+    }
+
+    public double devLimInf(Intervalo i) {
+        return Math.max(this.lsup, i.getLsup());
+    }
+
+    public double devLimInfComun(Intervalo i) {
+
+    }
+
+    public double devLimSupComun(Intervalo i) {
+
     }
 }
